@@ -1,0 +1,24 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
+// swift-module-flags: -target arm64-apple-ios14.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name QuizEngine
+import Foundation
+import Swift
+public enum Question<T> : Swift.Hashable where T : Swift.Hashable {
+  case singleAnswer(T)
+  case multipleAnswer(T)
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: QuizEngine.Question<T>, b: QuizEngine.Question<T>) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers final public class Quiz {
+  public static func start<Delegate>(questions: [Delegate.Question], delegate: Delegate) -> QuizEngine.Quiz where Delegate : QuizEngine.QuizDelegate, Delegate.Answer : Swift.Equatable
+  @objc deinit
+}
+public protocol QuizDelegate {
+  associatedtype Question
+  associatedtype Answer
+  func answer(for question: Self.Question, completion: @escaping (Self.Answer) -> Swift.Void)
+  func didCompleteQuiz(withAnswers: [(question: Self.Question, answer: Self.Answer)])
+}
